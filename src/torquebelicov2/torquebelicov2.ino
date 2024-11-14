@@ -19,6 +19,9 @@ int M2 = 0;
 int M1_d = 0;
 int M2_d = 0;
 
+int r = 0;
+float theta = 0;
+
 // Read the number of a given channel and convert to the range provided.
 // If the channel is off, return the default value
 int readChannel(int channelInput, int minLimit, int maxLimit, int defaultValue){
@@ -53,23 +56,19 @@ void loop() {
   empuje = readChannel(CH1, -255, 255, 0);
   direccion = readChannel(CH2, -255, 255, 0);
 
-
-  // calcular empuje para cada motor
-  if (abs(empuje) > 50){
-  // caso 1: empuje alto => manda empuje
-    M1_d = 255 + direccion/10;
-    M2_d = 255 - direccion/10;
-    M1 = min(255, M1_d)/255*empuje;
-    M2 = min(255, M2_d)/255*empuje;
-  }
+  // pasamos a "polares"
+  r = max(abs(empuje),abs(direccion)); //como la cosa es un cuadrado usamos norma infinito
+  // i.e. maximo de las componentes
   
-  else {
-    
-  // caso 2: empuje bajo => manda direccion
-    M1 = direccion/2 + empuje;
-    M2 = -direccion/2 + empuje;
+  //excepcion para theta
+  if (direccion == 0) { theta = PI/2*(empuje > 0);
+  }else {theta = atan2(empuje, direccion);
   }
 
+  M1 = r*max(-1,min(1,cos(theta - PI/4)));
+  M2 = r*max(-1,min(1,sin(theta - PI/4)));
+
+  
   //mandar señal correspondiente
   digitalWrite(pin_mot_1, (M1>=0));
   digitalWrite(pin_mot_1_r, (M1<0));
