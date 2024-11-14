@@ -65,8 +65,8 @@ void loop() {
   }else {theta = atan2(empuje, direccion);
   }
 
-  M1 = r*max(-1,min(1,cos(theta - PI/4)));
-  M2 = r*max(-1,min(1,sin(theta - PI/4)));
+  M1 = r*max(-1,min(1,1.4*cos(theta - PI/4)));
+  M2 = r*max(-1,min(1,1.4*sin(theta - PI/4)));
 
   
   //mandar señal correspondiente
