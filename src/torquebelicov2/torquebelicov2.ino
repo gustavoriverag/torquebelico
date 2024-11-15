@@ -61,7 +61,8 @@ void loop() {
   // i.e. maximo de las componentes
   
   //excepcion para theta
-  if (direccion == 0) { theta = PI/2*(empuje > 0);
+  if (r == 0) {theta = 0;}
+  else if (direccion == 0) { theta = PI/2*(empuje > 0);
   }else {theta = atan2(empuje, direccion);
   }
 
@@ -81,15 +82,15 @@ void loop() {
   //
 
   
-  Serial.print("m1: ");
-  Serial.println(M1);
+  //Serial.print("m1: ");
+ // Serial.println(M1);
   
-  Serial.print("m2: ");
-  Serial.println(M2);
+ // Serial.print("m2: ");
+  //Serial.println(M2);
 
- // Serial.print("dir: ");
-  //Serial.println(direccion);
+ Serial.print("dir: ");
+ Serial.println(direccion);
   
-  //Serial.print("em: ");
-  //Serial.println(empuje);
+ Serial.print("em: ");
+ Serial.println(empuje);
 }
